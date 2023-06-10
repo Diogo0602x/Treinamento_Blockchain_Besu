@@ -1,4 +1,6 @@
 // SPDX-License-Identifier: MIT
+// Endereço do contrato : 0x304B05e23c4ba9F324b4C830F3bF02C9BEe62221
+
 pragma solidity 0.8.20;
 
 contract ComissaoVendedor {
