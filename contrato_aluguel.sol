@@ -14,10 +14,8 @@ contract ContratoAluguel {
   string public locatario;
   uint256[36] public valoresAluguel;
 
-    // Modificador para restringir o acesso ao dono do contrato
     modifier unicoDono {
       require(msg.sender == dono, "Somente o dono do contrato pode realizar essa operação.");
-      _;
     }
 
   constructor(string memory _locador, string memory _locatario, uint256 valorInicialAluguel) {
