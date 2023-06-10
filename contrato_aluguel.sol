@@ -1,46 +1,47 @@
 // SPDX-License-Identifier: MIT
+// Endereço do contrato : 0x35EeDE02d52C830353b50c31ae498612029Cd308
+
 pragma solidity 0.8.20;
 
 contract ContratoAluguel {
 
-    string public locador;
-    string public locatario;
-    uint256[36] public valoresAluguel;
+  string public locador;
+  string public locatario;
+  uint256[36] public valoresAluguel;
 
-    constructor(string memory _locador, string memory _locatario, uint256 valorInicialAluguel) {
-        locador = _locador;
-        locatario = _locatario;
+  constructor(string memory _locador, string memory _locatario, uint256 valorInicialAluguel) {
+    locador = _locador;
+    locatario = _locatario;
 
-        // Iniciar o valor do aluguel para todos os 36 meses
-        for (uint i = 0; i < 36; i++) {
-            valoresAluguel[i] = valorInicialAluguel;
-        }
+    for (uint i = 0; i < 36; i++) {
+      valoresAluguel[i] = valorInicialAluguel;
     }
+  }
 
-    function valorAluguel(uint256 mes) public view returns (uint256) {
-        require(mes > 0 && mes <= 36, "Mês inválido. Insira um valor entre 1 e 36.");
-        return valoresAluguel[mes - 1]; // Lembre-se, a indexação do array começa em 0
+  function valorAluguel(uint256 mes) public view returns (uint256) {
+    require(mes > 0 && mes <= 36, "Mês inválido. Insira um valor entre 1 e 36.");
+    return valoresAluguel[mes - 1]; 
+  }
+
+  function getNomes() public view returns (string memory, string memory) {
+      return (locador, locatario);
+  }
+
+  function alterarNome(uint8 tipoPessoa, string memory novoNome) public {
+    if (tipoPessoa == 1) {
+      locador = novoNome;
+    } else if (tipoPessoa == 2) {
+      locatario = novoNome;
+    } else {
+      revert("Tipo de pessoa inválido. Use 1 para locador e 2 para locatário.");
     }
+  }
 
-    function getNomes() public view returns (string memory, string memory) {
-        return (locador, locatario);
+  function reajusteAluguel(uint256 mes, uint256 aumento) public {
+    require(mes > 0 && mes <= 36, "Mês inválido. Insira um valor entre 1 e 36.");
+
+    for (uint i = mes; i < 36; i++) {
+      valoresAluguel[i] += aumento;
     }
-
-    function alterarNome(uint8 tipoPessoa, string memory novoNome) public {
-        if (tipoPessoa == 1) {
-            locador = novoNome;
-        } else if (tipoPessoa == 2) {
-            locatario = novoNome;
-        } else {
-            revert("Tipo de pessoa inválido. Use 1 para locador e 2 para locatário.");
-        }
-    }
-
-    function reajusteAluguel(uint256 mes, uint256 aumento) public {
-        require(mes > 0 && mes <= 36, "Mês inválido. Insira um valor entre 1 e 36.");
-
-        for (uint i = mes; i < 36; i++) {
-            valoresAluguel[i] += aumento;
-        }
-    }
+  }
 }
