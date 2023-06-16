@@ -1,4 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
+// Endereço do contrato : 0xD69aaBdd2eE3D1047b8EE699379D05257B4d9540
+
 pragma solidity 0.8.20;
 
 contract ERC20 {
